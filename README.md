@@ -70,6 +70,7 @@ The relationships displayed are as follows:
   list.
 - Create an endpoint for searching a book by its `title`.
 - Add tests for endpoints.
+- Add logging.
 
 ## Submission
 
