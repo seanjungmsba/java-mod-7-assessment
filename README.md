@@ -46,20 +46,22 @@ The relationships displayed are as follows:
 
 ### Required Objectives
 
-- Implement the following endpoints:
-  | Endpoint                                    | Description                                               |
-  | ------------------------------------------- | --------------------------------------------------------- |
-  | GET /api/books                              | Gets all the books in the Book table.                     |
-  | GET /api/books/{id}                         | Gets a single book with the given ID.                     |
-  | POST /api/books                             | Create a book.                                            |
-  | PUT /api/books                              | Update a book.                                            |
-  | DELETE /api/books/{id}                      | Delete a book.                                            |
-  | GET /api/genre/{id}/books                   | Get all books in the genre with the given ID.             |
-  | POST api/users                              | Create a user.                                            |
-  | DELETE api/users/{id}                       | Delete a user.                                            |
-  | GET /api/users/{id}/reading_lists           | Gets the given user’s reading lists.                      |
-  | POST /api/users/{id}/reading_lists          | Create a new reading list for the user with the given ID. |
-  | GET /api/users/{id}/reading_lists/{list_id} | Gets the given user’s reading list with the ID list_id.   |
+| Endpoint                                    | Description                                               |
+| ------------------------------------------- | --------------------------------------------------------- |
+| GET /api/books                              | Gets all the books in the Book table.                     |
+| GET /api/books/{id}                         | Gets a single book with the given ID.                     |
+| POST /api/books                             | Create a book.                                            |
+| PUT /api/books                              | Update a book.                                            |
+| DELETE /api/books/{id}                      | Delete a book.                                            |
+| GET /api/genre/{id}/books                   | Get all books in the genre with the given ID.             |
+| POST api/users                              | Create a user.                                            |
+| DELETE api/users/{id}                       | Delete a user.                                            |
+| GET /api/users/{id}/reading_lists           | Gets the given user’s reading lists.                      |
+| POST /api/users/{id}/reading_lists          | Create a new reading list for the user with the given ID. |
+| GET /api/users/{id}/reading_lists/{list_id} | Gets the given user’s reading list with the ID list_id.   |
+
+Implement the endpoints pictured in the table:
+
 - Add validations (models, controller, parameters).
 - Handle exceptions.
 - Send back appropriate status codes for each response.
