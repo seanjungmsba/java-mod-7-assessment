@@ -10,5 +10,4 @@ import java.util.List;
 public class GetReadingListDTO {
     private Long id;
     private String name;
-    private List<CreateBookDTO> readingList;
 }

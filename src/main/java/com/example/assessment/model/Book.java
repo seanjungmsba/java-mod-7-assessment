@@ -25,7 +25,7 @@ public class Book {
     private Long id;
     @NotBlank
     private String title;
-    @NotNull
+
     private int pages;
     private Date published;
 
