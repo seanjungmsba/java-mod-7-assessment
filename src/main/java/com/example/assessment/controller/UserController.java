@@ -59,11 +59,13 @@ public class UserController {
         return readingListService.create(createReadingListDTO);
     }
 
+    // TODO: Struggling to get it mapping
     @GetMapping("/{id}/reading_lists")
     public GetUserDTO GetReadingListDTOById(@PathVariable(value = "id") Long id) {
         return readingListService.getById(id);
     }
 
+    // TODO: Struggling to get it mapping
     @GetMapping("/{id}/reading_lists/{list_id}")
     public GetReadingListDTO GetReadingListDTOByListId(@PathVariable(value = "list_id") Long list_id) {
         return readingListService.getByIdAndListId(list_id);

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +23,10 @@ public class ReadingList {
     @NotBlank
     private String name;
 
-    @ManyToOne
+    @ManyToMany(mappedBy = "readingLists") // many-to-many relationship between ReadingList and Book
+    private List<Book> books;
+
+    @ManyToOne // many-to-one relationship between ReadingList and User
     @JoinColumn(name = "user_id", insertable=false, updatable=false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;

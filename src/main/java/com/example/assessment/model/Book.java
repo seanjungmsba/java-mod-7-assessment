@@ -29,14 +29,21 @@ public class Book {
     private int pages;
     private Date published;
 
-    @ManyToMany
+    @ManyToMany // many-to-many relationship between Book and Genre
     @JoinTable(
             name = "book_genre",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
 
-    @ManyToOne
+    @ManyToMany // many-to-many relationship between Book and ReadingList
+    @JoinTable(
+            name = "book_list",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "readingList_id"))
+    private List<ReadingList> readingLists;
+
+    @ManyToOne // many-to-one relationship between Book and Author
     @JoinColumn(name = "author_id", insertable=false, updatable=false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
