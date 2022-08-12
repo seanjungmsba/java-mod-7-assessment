@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "BOOK")
+@Table(name = "`BOOK`")
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)

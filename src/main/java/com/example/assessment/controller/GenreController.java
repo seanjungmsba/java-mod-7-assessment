@@ -1,13 +1,14 @@
 package com.example.assessment.controller;
 
-import com.example.assessment.dto.CreateBookDTO;
-import com.example.assessment.dto.CreateGenreDTO;
 import com.example.assessment.dto.GetBookDTO;
+import com.example.assessment.dto.GetGenreDTO;
 import com.example.assessment.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /*
@@ -20,14 +21,9 @@ public class GenreController {
     @Autowired
     private GenreService genreService;
 
-    @GetMapping("/{id}/books")
-    public List<GetBookDTO> GetBookById(@PathVariable(value="id") Long id) {
+    @GetMapping("/{id}/books") // instead of GetBookDTO?
+    public List<GetGenreDTO> GetBooksById(@PathVariable(value = "id") Long id) {
         return genreService.getById(id);
-    }
-
-    @PostMapping
-    public CreateGenreDTO createGenre(@Valid @RequestBody CreateGenreDTO createGenreDTO) {
-        return genreService.create(createGenreDTO);
     }
 
 }

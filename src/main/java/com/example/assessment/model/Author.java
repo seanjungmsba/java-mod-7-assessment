@@ -11,10 +11,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "AUTHOR")
+@Table(name = "`AUTHOR`")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

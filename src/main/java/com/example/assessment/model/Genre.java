@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "GENRE")
+@Table(name = "`GENRE`")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
