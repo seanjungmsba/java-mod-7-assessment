@@ -76,7 +76,7 @@ public class BookService {
         String bookTitle = createBookDTO.getTitle();
         // get book author from createBookDTO
         Author bookAuthor = authorRepository.findByName(createBookDTO.getAuthor());
-        // if the Book already exists by its title and author, throw an error
+        // if the book already exists by its title and author, throw an error
         if (bookRepository.findBookByTitleAndAuthor(bookTitle, bookAuthor) != null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Book Already Exists");
         }
@@ -129,7 +129,7 @@ public class BookService {
             System.out.println(e);
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "validation errors", e);
         }
-        // convert book to GetBookDTO
+        // convert book to GetBookDTO object
         GetBookDTO getBookDTO = mapper.map(book, GetBookDTO.class);
         // set its author field
         getBookDTO.setAuthor(book.getAuthor().getName());

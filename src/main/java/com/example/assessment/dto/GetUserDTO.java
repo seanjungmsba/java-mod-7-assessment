@@ -10,7 +10,4 @@ import java.util.List;
 public class GetUserDTO {
     private Long id;
     private String username;
-    private String password;
-    // TODO: populate readingList
-    private List<GetReadingListDTO> readingList;
 }

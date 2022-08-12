@@ -12,6 +12,4 @@ import java.util.Set;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     Book findBookByTitleAndAuthor(String title, Author author);
-    Set<Genre> findBookByGenreSet(Genre genre);
-    List<Book> findAllByGenreSet(Genre genre);
 }
