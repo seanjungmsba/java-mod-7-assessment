@@ -5,7 +5,7 @@ import com.example.assessment.dto.readinglist.CreateReadingListDTO;
 import com.example.assessment.dto.readinglist.GetReadingListDTO;
 import com.example.assessment.dto.user.CreateUserDTO;
 import com.example.assessment.dto.user.GetUserDTO;
-import com.example.assessment.service.ReadingListService;
+import com.example.assessment.service.misc.ReadingListService;
 import com.example.assessment.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

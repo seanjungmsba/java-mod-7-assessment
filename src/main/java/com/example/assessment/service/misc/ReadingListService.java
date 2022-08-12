@@ -1,4 +1,4 @@
-package com.example.assessment.service;
+package com.example.assessment.service.misc;
 
 import com.example.assessment.dto.readinglist.CreateReadingListDTO;
 import com.example.assessment.dto.readinglist.GetReadingListDTO;

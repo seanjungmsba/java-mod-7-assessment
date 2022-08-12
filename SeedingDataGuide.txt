@@ -1,5 +1,5 @@
 ========================================================================================================
-1. POST /api/books	Create a book.
+1. POST /api/books => Create a book.
 
 a. RUN THE FOLLOWING:
 {
