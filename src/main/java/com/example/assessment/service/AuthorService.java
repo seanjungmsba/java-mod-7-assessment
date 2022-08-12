@@ -1,11 +1,8 @@
 package com.example.assessment.service;
 
-import com.example.assessment.dto.AuthorDTO;
-import com.example.assessment.dto.CreateBookDTO;
-import com.example.assessment.dto.GetBookDTO;
+import com.example.assessment.dto.GetAuthorDTO;
 import com.example.assessment.exception.NotFoundException;
 import com.example.assessment.model.Author;
-import com.example.assessment.model.Book;
 import com.example.assessment.repository.AuthorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,32 +19,32 @@ public class AuthorService {
     @Autowired
     private ModelMapper mapper;
 
-    public AuthorDTO create(AuthorDTO authorDTO) {
-        Author author = mapper.map(authorDTO, Author.class);
-        return mapper.map(repository.save(author), AuthorDTO.class);
+    public GetAuthorDTO create(GetAuthorDTO getAuthorDTO) {
+        Author author = mapper.map(getAuthorDTO, Author.class);
+        return mapper.map(repository.save(author), GetAuthorDTO.class);
     }
 
-    public AuthorDTO updateAuthorById(Long id, AuthorDTO newAuthor) {
+    public GetAuthorDTO updateAuthorById(Long id, GetAuthorDTO newAuthor) {
         Author author = repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Author not found"));
         author.setId(newAuthor.getId());
         author.setName(newAuthor.getName());
-        return mapper.map(repository.save(author), AuthorDTO.class);
+        return mapper.map(repository.save(author), GetAuthorDTO.class);
     }
 
-    public List<AuthorDTO> getAll() {
+    public List<GetAuthorDTO> getAll() {
         return repository.findAll()
                 .stream()
-                .map(author -> mapper.map(author, AuthorDTO.class))
+                .map(author -> mapper.map(author, GetAuthorDTO.class))
                 .toList();
     }
 
 
-    public AuthorDTO getById(Long id) {
+    public GetAuthorDTO getById(Long id) {
         return repository
                 .findById(id)
-                .map(author -> mapper.map(author, AuthorDTO.class))
+                .map(author -> mapper.map(author, GetAuthorDTO.class))
                 .orElseThrow(() -> new NotFoundException("Author not found"));
     }
 

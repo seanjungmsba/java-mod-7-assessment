@@ -1,6 +1,6 @@
 package com.example.assessment.controller;
 
-import com.example.assessment.dto.AuthorDTO;
+import com.example.assessment.dto.GetAuthorDTO;
 import com.example.assessment.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,23 +16,23 @@ public class AuthorController {
     private AuthorService authorService;
 
     @PostMapping
-    public AuthorDTO createAuthor(@Valid @RequestBody AuthorDTO author) {
+    public GetAuthorDTO createAuthor(@Valid @RequestBody GetAuthorDTO author) {
         return authorService.create(author);
     }
 
     @PutMapping("/{id}")
-    public AuthorDTO updateAuthor(@Valid @RequestBody @PathVariable(value = "id") Long id,
-                                  @Valid @RequestBody AuthorDTO newAuthor) {
+    public GetAuthorDTO updateAuthor(@Valid @RequestBody @PathVariable(value = "id") Long id,
+                                     @Valid @RequestBody GetAuthorDTO newAuthor) {
         return authorService.updateAuthorById(id, newAuthor);
     }
 
     @GetMapping
-    public List<AuthorDTO> getAllAuthors() {
+    public List<GetAuthorDTO> getAllAuthors() {
         return authorService.getAll();
     }
 
     @GetMapping("/{id}")
-    public AuthorDTO GetAuthorById(@PathVariable(value = "id") Long id) {
+    public GetAuthorDTO GetAuthorById(@PathVariable(value = "id") Long id) {
         return authorService.getById(id);
     }
 

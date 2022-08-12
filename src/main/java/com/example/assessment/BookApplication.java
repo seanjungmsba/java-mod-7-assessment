@@ -1,7 +1,7 @@
 package com.example.assessment;
 
-import com.example.assessment.model.jay.Activity;
-import com.example.assessment.repository.jay.ActivityRepository;
+import com.example.assessment.model.Author;
+import com.example.assessment.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,18 +21,16 @@ public class BookApplication {
 
 //	@Component
 //	public class StartUpRunner implements CommandLineRunner {
-//
 //		@Autowired
-//		private ActivityRepository activityRepository;
+//		private AuthorRepository authorRepository;
 //		@Override
 //		public void run(String... args) throws Exception {
-//			System.out.println("Running");
-//			activityRepository.saveAll(Arrays.asList(
-//					Activity.builder().name("Archery").difficulty(3).build(),
-//					Activity.builder().name("Hatchet Throwing").difficulty(5).build(),
-//					Activity.builder().name("Firestarting").difficulty(2).build()
+//			authorRepository.saveAll(Arrays.asList(
+//					Author.builder().name("Author Name A").build(),
+//					Author.builder().name("Author Name B").build(),
+//					Author.builder().name("Author Name C").build()
 //			));
-//			System.out.println(activityRepository.count());
+//			System.out.println(authorRepository.count());
 //		}
 //	}
 }

@@ -1,7 +1,8 @@
 package com.example.assessment.service;
 
 import com.example.assessment.dto.CreateBookDTO;
-import com.example.assessment.dto.GenreDTO;
+import com.example.assessment.dto.CreateGenreDTO;
+import com.example.assessment.dto.GetBookDTO;
 import com.example.assessment.exception.NotFoundException;
 import com.example.assessment.model.Book;
 import com.example.assessment.model.Genre;
@@ -29,15 +30,15 @@ public class GenreService {
     @Autowired
     private ModelMapper mapper;
 
-    public List<CreateBookDTO> getById(Long id) {
+    public List<GetBookDTO> getById(Long id) {
         // create new BookDTO list
-        List<CreateBookDTO> genreBookList = new ArrayList<>();
+        List<GetBookDTO> genreBookList = new ArrayList<>();
         // get Optional<Book> from Book Repository
         Optional<Book> bookOptional = bookRepository.findById(id);
         // if book is present, add it to newList;
         if (bookOptional.isPresent()) {
             Book existingBook = bookOptional.get();
-            genreBookList.add(mapper.map(existingBook, CreateBookDTO.class));
+            genreBookList.add(mapper.map(existingBook, GetBookDTO.class));
         // otherwise, throw NotFoundException
         } else {
             throw new NotFoundException("book is not found!");
@@ -46,10 +47,10 @@ public class GenreService {
         return genreBookList;
     }
 
-    public GenreDTO create(GenreDTO genreDTO) {
+    public CreateGenreDTO create(CreateGenreDTO createGenreDTO) {
         try {
-            Genre genre = mapper.map(genreDTO, Genre.class);
-            return mapper.map(genreRepository.save(genre), GenreDTO.class);
+            Genre genre = mapper.map(createGenreDTO, Genre.class);
+            return mapper.map(genreRepository.save(genre), CreateGenreDTO.class);
         } catch (Exception e) {
             log.error("ERROR");
             throw new NotFoundException("Book not found to match with genre");

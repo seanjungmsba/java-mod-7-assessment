@@ -3,9 +3,9 @@ package com.example.assessment.dto;
 import lombok.Data;
 
 @Data
-public class GenreDTO {
+public class CreateGenreDTO {
 
-    private Long id;
+//    private Long id;
 
     private String name;
 }

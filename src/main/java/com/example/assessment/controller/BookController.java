@@ -21,7 +21,7 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    private BookService bookService;
+    BookService bookService;
 
     @GetMapping
     public List<GetBookDTO> getAllBooks() {
@@ -34,12 +34,13 @@ public class BookController {
     }
 
     @PostMapping
-    public CreateBookDTO createBook(@Valid @RequestBody CreateBookDTO createBookDTO) {
+    public GetBookDTO createBook(@Valid @RequestBody CreateBookDTO createBookDTO) {
         return bookService.create(createBookDTO);
     }
 
     @PutMapping("/{id}")
-    public CreateBookDTO updateBook(@Valid @RequestBody @PathVariable(value = "id") Long id, @Valid @RequestBody CreateBookDTO newBook) {
+    public GetBookDTO updateBook(@Valid @RequestBody @PathVariable(value = "id") Long id,
+                                 @Valid @RequestBody CreateBookDTO newBook) {
         return bookService.updateBookById(id, newBook);
     }
 
