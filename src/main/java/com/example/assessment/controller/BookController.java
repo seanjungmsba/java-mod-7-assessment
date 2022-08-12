@@ -1,7 +1,7 @@
 package com.example.assessment.controller;
 
-import com.example.assessment.dto.CreateBookDTO;
-import com.example.assessment.dto.GetBookDTO;
+import com.example.assessment.dto.book.CreateBookDTO;
+import com.example.assessment.dto.book.GetBookDTO;
 import com.example.assessment.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

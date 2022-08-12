@@ -1,8 +1,9 @@
 package com.example.assessment.service;
 
-import com.example.assessment.dto.*;
+import com.example.assessment.dto.readinglist.CreateReadingListDTO;
+import com.example.assessment.dto.readinglist.GetReadingListDTO;
+import com.example.assessment.dto.user.GetUserDTO;
 import com.example.assessment.exception.NotFoundException;
-import com.example.assessment.model.Book;
 import com.example.assessment.model.ReadingList;
 import com.example.assessment.repository.BookRepository;
 import com.example.assessment.repository.ReadingListRepository;

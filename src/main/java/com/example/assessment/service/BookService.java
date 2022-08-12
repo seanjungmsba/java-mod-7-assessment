@@ -1,8 +1,9 @@
 package com.example.assessment.service;
 
-import com.example.assessment.dto.CreateBookDTO;
-import com.example.assessment.dto.GetBookDTO;
+import com.example.assessment.dto.book.CreateBookDTO;
+import com.example.assessment.dto.book.GetBookDTO;
 import com.example.assessment.exception.NotFoundException;
+import com.example.assessment.exception.ValidationException;
 import com.example.assessment.model.Author;
 import com.example.assessment.model.Book;
 import com.example.assessment.model.Genre;
@@ -77,7 +78,7 @@ public class BookService {
         // get book author from createBookDTO
         Author bookAuthor = authorRepository.findByName(createBookDTO.getAuthor());
         // if the book already exists by its title and author, throw an error
-        if (bookRepository.findBookByTitleAndAuthor(bookTitle, bookAuthor) != null) {
+        if (bookRepository.findByTitleAndAuthor(bookTitle, bookAuthor) != null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Book Already Exists");
         }
 
@@ -140,11 +141,13 @@ public class BookService {
 
     // we have to update Author and Genre field accordingly when updating a Book info
     public GetBookDTO updateBookById(Long id, CreateBookDTO updateBookDTO) {
+
         // if the book doesn't exist by its id, throw an error
         Book book = bookRepository.findById(id).orElseThrow(() -> new NotFoundException("Book not Found"));
 
         // 1. update author by first attempting to retrieve author from author repository
         Author author = authorRepository.findByName(updateBookDTO.getAuthor());
+
         // if author doesn't exist, create new author and save it to author repository
         if (author == null) {
             author = new Author();
@@ -154,8 +157,10 @@ public class BookService {
         // set its author
         book.setAuthor(author);
 
-        // 2. update the genres, remove the relationship in the join table if exists.
+        // 2. update the genres
         Set<Genre> genreSet = book.getGenreSet();
+
+        // create a copy of its book so that intermediary changes in book won't affect bookCopy
         Book bookCopy = book;
 
         // for each genre in genreSet in a book, if there is no match
@@ -181,18 +186,32 @@ public class BookService {
             }
             // add genre to its set
             genreSet.add(genre);
+
         });
+        // set its genre
+        book.setGenreSet(genreSet);
+
+        // 3. update other fields
+        book.setTitle(updateBookDTO.getTitle());
+        book.setPublished(updateBookDTO.getPublished());
+        book.setPages(updateBookDTO.getPages());
 
         // save the updated changes
         try {
             book = bookRepository.save(book);
         // throw an exception if there is any issue
         } catch (Exception e) {
-            System.out.println(e);
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "validation errors", e);
+            throw new ValidationException();
         }
+
+        // Convert updateBookDTO to GetBookDTO object
         GetBookDTO getBookDTO = mapper.map(updateBookDTO, GetBookDTO.class);
+        // properly update DTO attributes
+        getBookDTO.setPages(updateBookDTO.getPages());
+        getBookDTO.setPublished(updateBookDTO.getPublished());
+        getBookDTO.setTitle(updateBookDTO.getTitle());
         getBookDTO.setGenres(updateBookDTO.getGenre());
+        getBookDTO.setAuthor(updateBookDTO.getAuthor());
         return getBookDTO;
     }
 

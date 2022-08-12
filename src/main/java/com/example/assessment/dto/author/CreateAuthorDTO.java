@@ -1,7 +1,6 @@
-package com.example.assessment.dto;
+package com.example.assessment.dto.author;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class CreateAuthorDTO {

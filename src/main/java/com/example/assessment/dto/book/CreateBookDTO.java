@@ -1,4 +1,4 @@
-package com.example.assessment.dto;
+package com.example.assessment.dto.book;
 
 import lombok.Data;
 

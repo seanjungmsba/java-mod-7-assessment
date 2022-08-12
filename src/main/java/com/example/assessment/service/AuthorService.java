@@ -1,6 +1,6 @@
 package com.example.assessment.service;
 
-import com.example.assessment.dto.GetAuthorDTO;
+import com.example.assessment.dto.author.GetAuthorDTO;
 import com.example.assessment.exception.NotFoundException;
 import com.example.assessment.model.Author;
 import com.example.assessment.repository.AuthorRepository;

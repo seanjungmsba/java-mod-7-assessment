@@ -1,7 +1,6 @@
 package com.example.assessment.controller;
 
-import com.example.assessment.dto.GetBookDTO;
-import com.example.assessment.dto.GetGenreDTO;
+import com.example.assessment.dto.genre.GetGenreDTO;
 import com.example.assessment.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,6 @@
 package com.example.assessment.service;
 
-import com.example.assessment.dto.GetBookDTO;
-import com.example.assessment.dto.GetGenreDTO;
+import com.example.assessment.dto.genre.GetGenreDTO;
 import com.example.assessment.exception.NotFoundException;
 import com.example.assessment.model.Genre;
 import com.example.assessment.repository.BookRepository;
