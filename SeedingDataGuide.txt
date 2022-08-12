@@ -1,0 +1,256 @@
+========================================================================================================
+1. POST /api/books	Create a book.
+
+a. RUN THE FOLLOWING:
+{
+    "title":"RandomBookTitle1",
+    "author":"AuthorName1",
+    "genre": ["Genre1", "Genre2"],
+    "pages": 450,
+    "published": "2021-03-27"
+}
+
+RETURNS THE FOLLOWING:
+{
+    "id": 1,
+    "title": "RandomBookTitle1",
+    "author": "AuthorName1",
+    "genres": [
+        "Genre2",
+        "Genre1"
+    ],
+    "pages": 450,
+    "published": "2021-03-27T00:00:00.000+00:00"
+}
+
+b. RUN THE FOLLOWING:
+{
+    "title":"RandomBookTitle2",
+    "author":"AuthorName2",
+    "genre": ["Genre2", "Genre3"],
+    "pages": 329,
+    "published": "2019-05-19"
+}
+
+RETURNS THE FOLLOWING:
+{
+    "id": 2,
+    "title": "RandomBookTitle2",
+    "author": "AuthorName2",
+    "genres": [
+        "Genre3",
+        "Genre2"
+    ],
+    "pages": 329,
+    "published": "2019-05-19T00:00:00.000+00:00"
+}
+
+========================================================================================================
+2. GET /api/books/{id} => Gets a single book with the given ID.
+
+a. RUN THE FOLLOWING: GET http://localhost:8080/api/books/1
+
+RETURNS THE FOLLOWING:
+{
+    "id": 1,
+    "title": "RandomBookTitle1",
+    "author": "AuthorName1",
+    "genres": [
+        "Genre1",
+        "Genre2"
+    ],
+    "pages": 450,
+    "published": "2021-03-26"
+}
+
+b. RUN THE FOLLOWING: GET http://localhost:8080/api/books/2
+{
+    "title":"RandomBookTitle2",
+    "author":"AuthorName2",
+    "genre": ["Genre2", "Genre3"],
+    "pages": 329,
+    "published": "2019-05-19"
+}
+
+RETURNS THE FOLLOWING:
+{
+    "id": 2,
+    "title": "RandomBookTitle2",
+    "author": "AuthorName2",
+    "genres": [
+        "Genre2",
+        "Genre3"
+    ],
+    "pages": 329,
+    "published": "2019-05-18"
+}
+========================================================================================================
+3. GET /api/books => Gets all the books in the Book table.
+
+RUN THE FOLLOWING: GET http://localhost:8080/api/books/
+
+RETURNS THE FOLLOWING:
+[
+    {
+        "id": 1,
+        "title": "RandomBookTitle1",
+        "author": "AuthorName1",
+        "genres": [
+            "Genre2",
+            "Genre1"
+        ],
+        "pages": 450,
+        "published": "2021-03-26"
+    },
+    {
+        "id": 2,
+        "title": "RandomBookTitle2",
+        "author": "AuthorName2",
+        "genres": [
+            "Genre3",
+            "Genre2"
+        ],
+        "pages": 329,
+        "published": "2019-05-18"
+    }
+]
+========================================================================================================
+4. PUT /api/books => Update a book.
+
+RUN THE FOLLOWING: PUT http://localhost:8080/api/books/2
+{
+    "title":"RandomBookTitle3",
+    "author":"AuthorName3",
+    "genre": ["Genre2", "Genre4"],
+    "pages": 115,
+    "published": "2015-11-03"
+}
+
+RETURNS THE FOLLOWING AFTER GET http://localhost:8080/api/books/2 :
+
+{
+    "id": 2,
+    "title": "RandomBookTitle3",
+    "author": "AuthorName3",
+    "genres": [
+        "Genre4",
+        "Genre2"
+    ],
+    "pages": 115,
+    "published": "2015-11-02"
+}
+
+========================================================================================================
+5. DELETE /api/books/{id} => Delete a book.
+
+RUN THE FOLLOWING: DELETE http://localhost:8080/api/books/2
+
+GET http://localhost:8080/api/books/ RETURNS (id of 2 is removed):
+[
+    {
+        "id": 1,
+        "title": "RandomBookTitle1",
+        "author": "AuthorName1",
+        "genres": [
+            "Genre2",
+            "Genre1"
+        ],
+        "pages": 450,
+        "published": "2021-03-26"
+    }
+]
+========================================================================================================
+6. GET /api/genre/{id}/books => Get all books in the genre with the given ID.
+
+RUN THE FOLLOWING: GET http://localhost:8080/api/genre/1/books
+
+RETURNS THE FOLLOWING:
+[
+    {
+        "title": "RandomBookTitle1",
+        "author": "Author(id=1, name=AuthorName1)",
+        "pages": 450,
+        "published": "2021-03-26"
+    }
+]
+========================================================================================================
+7. POST api/users => Create a user.
+
+a. RUN THE FOLLOWING: POST http://localhost:8080/api/users/
+{
+    "username": "FirstName LastName",
+    "password": "RaNDomPassWoRd12#$"
+}
+
+RETURNS THE FOLLOWING:
+{
+    "id": 1,
+    "username": "FirstName LastName"
+}
+
+b. RUN THE FOLLOWING: POST http://localhost:8080/api/users/
+{
+    "username": "FirstName2 LastName2",
+    "password": "QJzXsw!2314#&"
+}
+
+RETURNS THE FOLLOWING:
+{
+    "id": 2,
+    "username": "FirstName2 LastName2"
+}
+========================================================================================================
+8. DELETE api/users/{id} => Delete a user.
+
+RUN THE FOLLOWING: DELETE http://localhost:8080/api/users/2
+
+GET http://localhost:8080/api/users/ RETURNS (id of 2 is deleted):
+[
+    {
+        "id": 1,
+        "username": "FirstName LastName"
+    }
+]
+========================================================================================================
+9. POST /api/users/{id}/reading_lists => Create a new reading list for the user with the given ID.
+
+RUN THE FOLLOWING: POST http://localhost:8080/api/users/1/reading_lists:
+* Cannot post unless username already exists in the database
+{
+"readingListName": "My Favorite NightTime Reading List",
+"username": "FirstName LastName",
+"readingList":
+[{"title": "Random Book Title A", "pages": 325, "author":"Random Author Name A"},
+ {"title": "Random Book Title B", "pages": 491, "author":"Random Author Name B"}]
+}
+
+RETURNS THE FOLLOWING:
+[
+    {
+        "title": "Random Book Title A",
+        "pages": 325,
+        "author": "Random Author Name A"
+    },
+    {
+        "title": "Random Book Title B",
+        "pages": 491,
+        "author": "Random Author Name B"
+    }
+]
+========================================================================================================
+10. GET /api/users/{id}/reading_lists => Gets the given user’s reading lists.
+
+RUN THE FOLLOWING: GET http://localhost:8080/api/users/1/reading_lists
+
+RETURNS THE FOLLOWING:
+[
+    {
+        "id": 1,
+        "name": "My Favorite NightTime Reading List"
+    }
+]
+========================================================================================================
+11. GET /api/users/{id}/reading_lists/{list_id} => Gets the given user’s reading list with the ID list_id.
+
+                                          (ERROR: NOT WORKING)
+========================================================================================================

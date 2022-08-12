@@ -24,6 +24,5 @@ public class Author {
     @NotNull
     @NotBlank
     private String name;
-
 }
 

@@ -1,7 +1,6 @@
 package com.example.assessment.service;
 
 import com.example.assessment.dto.book.BookInfoDTO;
-import com.example.assessment.dto.book.GetBookDTO;
 import com.example.assessment.dto.readinglist.CreateReadingListDTO;
 import com.example.assessment.dto.readinglist.GetReadingListDTO;
 import com.example.assessment.dto.user.CreateUserDTO;
@@ -12,13 +11,14 @@ import com.example.assessment.model.Author;
 import com.example.assessment.model.Book;
 import com.example.assessment.model.ReadingList;
 import com.example.assessment.model.User;
-import com.example.assessment.repository.*;
+import com.example.assessment.repository.AuthorRepository;
+import com.example.assessment.repository.BookRepository;
+import com.example.assessment.repository.ReadingListRepository;
+import com.example.assessment.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +31,6 @@ public class UserService {
     BookRepository bookRepository;
     @Autowired
     AuthorRepository authorRepository;
-    @Autowired
-    GenreRepository genreRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -62,7 +60,7 @@ public class UserService {
             user = userRepository.save(user);
         } catch (Exception e) {
             System.out.println(e);
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "validation errors", e);
+            throw new ValidationException();
         }
 
         // convert user to GetUserDTO object
@@ -77,11 +75,11 @@ public class UserService {
 
     public void deleteById(Long id) {
         // if user is not found by its id from repository, throw an error
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("User not Found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not Found"));
         // remove the user from reading list
-        List<ReadingList> readingList =  readingListRepository.findByUser(user);
-        for (ReadingList list: readingList) {
+        List<ReadingList> readingList = readingListRepository.findByUser(user);
+        for (ReadingList list : readingList) {
             // for each book set in reading list existed in repository
             list.getBookSet().forEach(book -> {
                 // remove its reading list object from the book set
@@ -107,7 +105,8 @@ public class UserService {
     // Not a required method but created to validate
     public GetUserDTO getById(Long id) {
         // find a user by its id
-        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not Found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not Found"));
         // convert user to GetUserDTO
         GetUserDTO getUserDTO = mapper.map(user, GetUserDTO.class);
         // get username
@@ -123,7 +122,7 @@ public class UserService {
 
         // try to find user by its id from user repository
         User user = userRepository.findById(id).orElseThrow(
-                ()-> new NotFoundException("User Not Found"));
+                () -> new NotFoundException("User Not Found"));
 
         // convert List<ReadingList> to List<GetReadingListDTO>
         return readingListRepository.findByUser(user).stream().map(
@@ -171,35 +170,42 @@ public class UserService {
                     // if book is found, add it to readingListFinal
                     if (bookSearched != null) {
                         readingListFinal.getBookSet().add(bookSearched);
-                    // otherwise, add it to list of new books
                     } else {
+                        // otherwise, add it to list of new books
                         newBookList.add(bookInfoDTO);
                     }
                 });
+
         // update reading list with new set of books and its user
         readingList.setBookSet(readingListFinal.getBookSet());
         readingList.setUser(user);
+
         // save
         readingListRepository.save(readingList);
         return newBookList;
     }
 
-    // Gets the given user’s reading list with the id and list_id
+    // Gets the given user’s reading list with the id and list_id (NOT WORKING)
     public List<BookInfoDTO> getReadingList(Long id, Long list_id) {
 
-        // try to find user based on id
-        User user = userRepository.findById(id).orElseThrow(()-> new NotFoundException("User Not Found"));
+        /*
+                // try to find user based on id
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User Not Found"));
 
         // try to find reading list based on list_id
-        ReadingList readingList = readingListRepository.findById(list_id).orElseThrow(()-> new NotFoundException("Reading List Not Found"));
+        ReadingList readingList = readingListRepository.findById(list_id)
+                .orElseThrow(() -> new NotFoundException("Reading List Not Found"));
 
         // if reading list does not belong to the user, throw an error
-        if(!readingList.getUser().getId().equals(user.getId())){
+        if (readingList.getUser().getId() != user.getId()) {
             throw new ValidationException();
         }
 
         // Convert Set<Book> to List<BookInfoDTO>
         return readingList.getBookSet().stream()
                 .map(bookSet -> mapper.map(bookSet, BookInfoDTO.class)).toList();
+         */
+        return null;
     }
 }

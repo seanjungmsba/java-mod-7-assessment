@@ -26,7 +26,6 @@ public class GenreService {
     @Autowired
     private ModelMapper mapper;
 
-    // strategy
     // 1. identify genre by its id from genre repository
     // 2. for each books in book repository, if its genreSet contains genre
     //    found from genre repository, add it to the new list of books

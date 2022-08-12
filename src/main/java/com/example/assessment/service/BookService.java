@@ -111,7 +111,7 @@ public class BookService {
             // if the genre is found, update the Genre object's bookSet with the new book
             if (genre != null) {
                 genre.getBookSet().add(bookCopy);
-            // if the genre doesn't yet exist, create new Genre object and save it to genre repository
+                // if the genre doesn't yet exist, create new Genre object and save it to genre repository
             } else {
                 genre = new Genre();
                 genre.setName(genreName);
@@ -122,12 +122,13 @@ public class BookService {
             genreSet.add(genre);
         });
 
-        // try to save book
+
         try {
+            // save book
             book = bookRepository.save(book);
-        // catch exception if there is any error
         } catch (Exception e) {
-            System.out.println(e);
+            // catch exception if there is any error
+            System.err.println(e);
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "validation errors", e);
         }
         // convert book to GetBookDTO object
@@ -139,7 +140,7 @@ public class BookService {
         return getBookDTO;
     }
 
-    // we have to update Author and Genre field accordingly when updating a Book info
+    // we have to update Author and Genre field accordingly when updating a Book info since these are linked together
     public GetBookDTO updateBookById(Long id, CreateBookDTO updateBookDTO) {
 
         // if the book doesn't exist by its id, throw an error
@@ -196,22 +197,25 @@ public class BookService {
         book.setPublished(updateBookDTO.getPublished());
         book.setPages(updateBookDTO.getPages());
 
-        // save the updated changes
         try {
+            // save the updated changes
             book = bookRepository.save(book);
-        // throw an exception if there is any issue
         } catch (Exception e) {
+            // throw an exception if there is any issue
             throw new ValidationException();
         }
 
         // Convert updateBookDTO to GetBookDTO object
         GetBookDTO getBookDTO = mapper.map(updateBookDTO, GetBookDTO.class);
-        // properly update DTO attributes
+
+        // properly update other DTO attributes
         getBookDTO.setPages(updateBookDTO.getPages());
         getBookDTO.setPublished(updateBookDTO.getPublished());
         getBookDTO.setTitle(updateBookDTO.getTitle());
         getBookDTO.setGenres(updateBookDTO.getGenre());
         getBookDTO.setAuthor(updateBookDTO.getAuthor());
+
+        // return getBookDTO
         return getBookDTO;
     }
 

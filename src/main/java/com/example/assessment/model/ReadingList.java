@@ -23,6 +23,7 @@ public class ReadingList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     @NotBlank
     private String name;
@@ -36,7 +37,6 @@ public class ReadingList {
     @JoinTable(
             name = "ReadingList_Book",
             joinColumns = {@JoinColumn(name = "readinglist_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
+            inverseJoinColumns = {@JoinColumn(name = "book_id")})
     private Set<Book> bookSet = new HashSet<Book>();
 }

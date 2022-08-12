@@ -56,20 +56,20 @@ public class UserController {
     GET /api/users/{id}/reading_lists/{list_id}	Gets the given user’s reading list with the ID list_id.
      */
     @GetMapping("/{id}/reading_lists")
-    public List<GetReadingListDTO> getReadingList(@PathVariable Long id){
+    public List<GetReadingListDTO> getReadingList(@PathVariable Long id) {
         return userService.getReadingLists(id);
     }
 
     @PostMapping("/{id}/reading_lists")
     public List<BookInfoDTO> createReadingList(@PathVariable(value = "id") Long id,
-                                               @RequestBody CreateReadingListDTO readingListDTO){
+                                               @RequestBody CreateReadingListDTO readingListDTO) {
         return userService.createReadingList(id, readingListDTO);
     }
 
     @GetMapping("/{id}/reading_lists/{list_id}")
     public List<BookInfoDTO> getReadingListBooks(@PathVariable(value = "id") Long id,
                                                  @PathVariable(value = "list_id") Long list_id) {
-        return userService.getReadingList(id,list_id);
+        return userService.getReadingList(id, list_id);
     }
 
 }
